@@ -1,1 +1,132 @@
+.score {
+  font-size: rem(20);
 
+  // .score__value
+
+  &__value {
+  }
+}
+
+.game {
+  // .game__container
+
+  &__container {
+  }
+
+  // .game__categories
+
+  &__categories {
+  }
+
+  // .game__question
+
+  &__question {
+  }
+}
+.categories {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  border-radius: rem(10);
+  overflow: hidden;
+
+  margin-bottom: rem(25);
+
+  // .categories__item
+  &__item {
+    flex: auto;
+    text-align: center;
+    background-color: #007c5d;
+    padding: rem(10);
+
+    &._active {
+      background-color: #00bc8c;
+    }
+  }
+}
+.question {
+  padding: rem(15);
+  background-color: #303030;
+
+  border-radius: rem(10);
+
+  display: flex;
+
+  gap: rem(20);
+
+  // .question__img-ibg
+  &__img-ibg {
+    width: rem(200);
+    height: rem(155);
+
+    border-radius: rem(10);
+    overflow: hidden;
+  }
+
+  &__content {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    gap: rem(20);
+  }
+
+  // .question__answer
+
+  &__answer {
+  }
+
+  // .question__audio-player
+
+  &__audio-player {
+  }
+}
+.audio-player {
+  flex: auto;
+
+  // .audio-player__controls
+
+  &__controls {
+    flex: auto;
+    width: 100%;
+    display: flex;
+    gap: rem(20);
+  }
+
+  // .audio-player__play
+
+  &__play {
+  }
+
+  // .audio-player__time-bar
+
+  &__time-bar {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    gap: rem(10);
+  }
+
+  // .audio-player__progress-bar
+
+  &__progress-bar {
+    width: 100%;
+  }
+
+  // .audio-player__time-info
+
+  &__time-info {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  // .audio-player__current-time
+
+  &__current-time {
+  }
+
+  // .audio-player__total-time
+
+  &__total-time {
+  }
+}

@@ -11,10 +11,42 @@
     <div class="wrapper">
       <header class="header">
         <div class="header__container">
-          <div class="header__logo logo"></div>
-          <h5 class="header__score score">Score: <span>0</span></h5>
+          <a href="#" class="header__logo logo"></a>
+          <h5 class="header__score score">Score: <span class="score__value">0</span></h5>
         </div>
       </header>
+      <main class="game">
+        <div class="game__container">
+          <ul class="game__categories categories">
+            <li class="categories__item _active">Разминка</li>
+            <li class="categories__item">Воробьиные</li>
+            <li class="categories__item">Лесные птицы</li>
+            <li class="categories__item">Певчие птицы</li>
+            <li class="categories__item">Хищные птицы</li>
+            <li class="categories__item">Морские птицы</li>
+          </ul>
+          <div class="game__question question">
+            <div class="question__img-ibg">
+              <img src="./assets/img/default-image.jpg" alt="bird" />
+            </div>
+            <div class="question__content">
+              <h3 class="question__answer">******</h3>
+              <div class="question__audio-player audio-player">
+                <div class="audio-player__controls">
+                  <button class="audio-player__play">play</button>
+                  <div class="audio-player__time-bar">
+                    <input type="range" class="audio-player__progress-bar" value="0" min="0" max="100" step="0.01" />
+                    <div class="audio-player__time-info">
+                      <div class="audio-player__current-time">00:00</div>
+                      <div class="audio-player__total-time">00:30</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   </body>
 </html>

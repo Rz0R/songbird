@@ -1,0 +1,30 @@
+.header {
+  // .header__container
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: rem(15);
+    padding-bottom: rem(15);
+  }
+
+  // .header__logo
+
+  &__logo {
+  }
+
+  // .header__score
+
+  &__score {
+  }
+}
+
+.logo {
+  display: block;
+  width: rem(200);
+  height: rem(55);
+  background-image: url(../assets/img/logo.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
