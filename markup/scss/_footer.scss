@@ -1,0 +1,27 @@
+.footer {
+  // .footer__container
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: rem(20);
+    padding-bottom: rem(20);
+  }
+
+  // .footer__github-icon
+  &__github-icon {
+    width: rem(32);
+    margin: 0 rem(24);
+  }
+
+  // .footer__year
+  &__year {
+    font-size: rem(20);
+  }
+
+  // .footer__rsshcool-icon
+
+  &__rsshcool-icon {
+    width: rem(80);
+  }
+}
