@@ -86,8 +86,6 @@ const createGamePageTemplate = () =>
             </div>
           </div>
         </div>
-
-        <button disabled class="game__next-btn">Next Level</button>
       </div>
     </main>`;
 
@@ -98,10 +96,6 @@ class GamePageView extends AbstractView {
 
   getGameContainer = () => {
     return this.element.querySelector('.game__container');
-  };
-
-  getQuestionContentContainer = () => {
-    return this.element.querySelector('.question__content');
   };
 }
 

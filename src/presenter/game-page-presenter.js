@@ -8,6 +8,7 @@ import QuestionView from '../view/question-view';
 import GamePageView from '../view/game-page-view';
 import FooterView from '../view/footer-view';
 import AudioPlayerView from '../view/audio-player-view';
+import NextButtonView from '../view/next-button-view';
 
 const categories = [
   { name: 'Разминка', isAcive: false },
@@ -29,10 +30,12 @@ const question = {
 
 class GamePagePresenter {
   #gamePageContainer = null;
+  #gamePageComponent = null;
   #headerComponent = null;
   #categoriesComponent = null;
   #questionComponent = null;
-  #gamePageComponent = null;
+
+  #nextButtonComponent = null;
   #footerComponent = null;
 
   #questionAudioPlayer = null;
@@ -51,6 +54,7 @@ class GamePagePresenter {
 
     this.#renderCategories();
     this.#renderQuestion();
+    this.#renderNexButton();
 
     this.#footerComponent = new FooterView();
     render(this.#gamePageContainer, this.#footerComponent);
@@ -87,7 +91,7 @@ class GamePagePresenter {
     render(this.#questionComponent.getQuestionContentContainer(), this.#questionAudioPlayer);
 
     if (!prevQuestionComponent) {
-      render(this.#gamePageComponent.getGameContainer(), this.#questionComponent, RenderPosition.BEFOREEND);
+      render(this.#gamePageComponent.getGameContainer(), this.#questionComponent);
       return;
     }
 
@@ -100,6 +104,17 @@ class GamePagePresenter {
     remove(this.#questionComponent);
     this.#questionAudioPlayer = null;
     this.#questionComponent = null;
+  };
+
+  #renderNexButton = () => {
+    this.#nextButtonComponent = new NextButtonView(true);
+    this.#nextButtonComponent.setButtonClickHandler(() => console.log('next btn'));
+    render(this.#gamePageComponent.getGameContainer(), this.#nextButtonComponent);
+  };
+
+  #destroyNextButtonComponet = () => {
+    remove(this.#nextButtonComponent);
+    this.#nextButtonComponent = null;
   };
 }
 
