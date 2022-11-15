@@ -3,15 +3,6 @@ import AbstractView from './abstract-view';
 const createGamePageTemplate = () =>
   `<main class="game">
       <div class="game__container">
-        <div class="game__question question">
-          <div class="question__img-ibg">
-            <img src="./assets/img/default-image.jpg" alt="bird" />
-          </div>
-          <div class="question__content">
-            <h3 class="question__answer">******</h3>
-          </div>
-        </div>
-
         <div class="game__answers answers">
           <ul class="answers__list">
             <li class="answers__item _correct"><span></span> Ворон</li>

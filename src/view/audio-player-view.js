@@ -123,7 +123,7 @@ class AudioPlayerView extends AbstractView {
   #audioDuration = null;
   #currentTimeElement = null;
 
-  constructor(src, duration) {
+  constructor({ src, duration }) {
     super();
 
     this.#audioSrc = src;
