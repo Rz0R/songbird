@@ -3,14 +3,6 @@ import AbstractView from './abstract-view';
 const createGamePageTemplate = () =>
   `<main class="game">
       <div class="game__container">
-        <ul class="game__categories categories">
-          <li class="categories__item _active">Разминка</li>
-          <li class="categories__item">Воробьиные</li>
-          <li class="categories__item">Лесные птицы</li>
-          <li class="categories__item">Певчие птицы</li>
-          <li class="categories__item">Хищные птицы</li>
-          <li class="categories__item">Морские птицы</li>
-        </ul>
         <div class="game__question question">
           <div class="question__img-ibg">
             <img src="./assets/img/default-image.jpg" alt="bird" />
@@ -112,6 +104,10 @@ class GamePageView extends AbstractView {
   get template() {
     return createGamePageTemplate();
   }
+
+  getGameContainer = () => {
+    return this.element.querySelector('.game__container');
+  };
 
   getQuestionContentContainer = () => {
     return this.element.querySelector('.question__content');
