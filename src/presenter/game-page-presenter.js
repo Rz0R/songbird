@@ -9,6 +9,7 @@ import QuestionView from '../view/question-view';
 import AnswersContainerView from '../view/answers-container-view';
 import AnswersListView from '../view/answers-list-view';
 import AnswerDescriptionView from '../view/answer-description-view';
+import AnswerInstructionView from '../view/answer-instruction-view';
 import NextButtonView from '../view/next-button-view';
 import FooterView from '../view/footer-view';
 import AudioPlayerView from '../view/audio-player-view';
@@ -52,6 +53,8 @@ const answerDescription = {
   },
 };
 
+const insructionMessages = ['Послушайте плеер.', 'Выберите птицу из списка.'];
+
 class GamePagePresenter {
   #gamePageContainer = null;
   #gamePageComponent = null;
@@ -62,6 +65,7 @@ class GamePagePresenter {
   #answersContainerComponent = null;
   #answersListComponent = null;
   #answerDescriptionComponent = null;
+  #answerInstructionComponent = null;
   #answerDescriptionAudioPlayer = null;
   #nextButtonComponent = null;
   #footerComponent = null;
@@ -82,7 +86,8 @@ class GamePagePresenter {
     this.#renderQuestion();
     this.#renderAnswersContainerComponent();
     this.#renderAnswerListComponent();
-    this.#renderAnswerDescriptionComponent();
+    // this.#renderAnswerDescriptionComponent();
+    this.#renderAnswerInstructionComponent();
     this.#renderNexButton();
 
     this.#footerComponent = new FooterView();
@@ -188,6 +193,16 @@ class GamePagePresenter {
     remove(this.#answerDescriptionComponent);
     this.#answerDescriptionAudioPlayer = null;
     this.#answerDescriptionComponent = null;
+  };
+
+  #renderAnswerInstructionComponent = () => {
+    this.#answerInstructionComponent = new AnswerInstructionView(insructionMessages);
+    render(this.#answersContainerComponent, this.#answerInstructionComponent);
+  };
+
+  #destroyAnswerInstructionComponent = () => {
+    remove(this.#answerInstructionComponent);
+    this.#answerInstructionComponent = null;
   };
 
   #renderNexButton = () => {

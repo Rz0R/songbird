@@ -305,7 +305,8 @@
 
   // .answers__list
   &__list,
-  &__description {
+  &__description,
+  &__instructions {
     flex: 1 1 0;
     background-color: #303030;
     border-radius: rem(10);
@@ -323,6 +324,14 @@
 
     @media (max-width: em(1100)) {
       align-self: stretch;
+    }
+  }
+
+  &__instructions {
+    padding: rem(16);
+
+    p {
+      line-height: 1.5;
     }
   }
 
