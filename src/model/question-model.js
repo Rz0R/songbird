@@ -96,7 +96,7 @@ class QuestionModel {
   };
 
   addPenaltyEvtListener = (callback) => {
-    this.#winEvtListeners.add(callback);
+    this.#penaltyEvtListeners.add(callback);
   };
 
   removePenaltyEvtListener = (callback) => {
@@ -111,6 +111,7 @@ class QuestionModel {
 
   setPenalty = () => {
     this.#penaltyPoints++;
+    // console.log(this.#penaltyEvtListeners);
     this.#penaltyEvtListeners.forEach((callback) => callback());
   };
 }

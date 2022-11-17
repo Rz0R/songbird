@@ -16,6 +16,7 @@ import AnswerInstructionView from '../view/answer-instruction-view';
 import NextButtonView from '../view/next-button-view';
 import FooterView from '../view/footer-view';
 import AudioPlayerView from '../view/audio-player-view';
+import SoundView from '../view/sound-view';
 
 const insructionMessages = ['Послушайте плеер.', 'Выберите птицу из списка.'];
 
@@ -36,6 +37,7 @@ class GamePagePresenter {
   #answerDescriptionAudioPlayer = null;
   #nextButtonComponent = null;
   #footerComponent = null;
+  #soundComponent = null;
 
   #currentAnswerId = null;
 
@@ -44,6 +46,7 @@ class GamePagePresenter {
 
     this.#questionModel = new QuestionModel();
     this.#questionModel.addRoundWinEvtListener(this.#roundWinHadler);
+    this.#questionModel.addPenaltyEvtListener(this.#errorAnswerHandler);
   }
 
   renderPage = () => {
@@ -62,6 +65,8 @@ class GamePagePresenter {
 
     this.#footerComponent = new FooterView();
     render(this.#gamePageContainer, this.#footerComponent);
+
+    this.#renderSoundComponent();
   };
 
   #answerClickHandler = (id) => {
@@ -81,6 +86,11 @@ class GamePagePresenter {
   #roundWinHadler = () => {
     this.#questionAudioPlayer.stopAudio();
     this.#renderGameScoreComponent();
+    this.#soundComponent.playRightAnswerSound();
+  };
+
+  #errorAnswerHandler = () => {
+    this.#soundComponent.playWrongAnswerSound();
   };
 
   #renderHeaderComponent = () => {
@@ -236,6 +246,16 @@ class GamePagePresenter {
   #destroyNextButtonComponet = () => {
     remove(this.#nextButtonComponent);
     this.#nextButtonComponent = null;
+  };
+
+  #renderSoundComponent = () => {
+    this.#soundComponent = new SoundView();
+    render(this.#gamePageContainer, this.#soundComponent);
+  };
+
+  #destroySoundComponent = () => {
+    remove(this.#soundComponent);
+    this.#soundComponent = null;
   };
 }
 
