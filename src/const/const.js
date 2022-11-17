@@ -4,3 +4,8 @@ export const RenderPosition = {
   BEFOREEND: 'beforeend',
   AFTEREND: 'afterend',
 };
+
+export const LANGUAGE = {
+  RU: 'ru',
+  EN: 'en',
+};

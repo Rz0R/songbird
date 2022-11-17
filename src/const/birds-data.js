@@ -1,4 +1,9 @@
-export const birdsDataRu = [
+export const categories = {
+  ru: ['Разминка', 'Воробьиные', 'Лесные птицы', 'Певчие птицы', 'Хищные птицы', 'Морские птицы'],
+  en: ['Warm-up', 'Sparrows', 'Forest birds', 'Songbirds', 'Birds of prey', 'Seabirds'],
+};
+
+export const birdsData = [
   [
     {
       id: 1,
@@ -88,13 +93,20 @@ export const birdsDataRu = [
     },
     {
       id: 6,
-      name: 'Синица',
+      name: {
+        ru: 'Синица',
+        en: 'Tit',
+      },
       species: 'Parus major',
-      description:
-        'В щебетании синиц различают более 40 различных звуковых сочетаний. Поют они практически круглый год, немного затихая только зимой. Синицы настоящие санитары леса. Одна пара синиц в период гнездования оберегает от вредителей десятки деревьев.',
+      description: {
+        ru: 'В щебетании синиц различают более 40 различных звуковых сочетаний. Поют они практически круглый год, немного затихая только зимой. Синицы настоящие санитары леса. Одна пара синиц в период гнездования оберегает от вредителей десятки деревьев.',
+        en: 'More than 40 different sound combinations are distinguished in the chirping of tits. They sing almost all year round, fading a little only in winter. Tits are real orderlies of the forest. One pair of tits during the nesting period protects dozens of trees from pests.',
+      },
       image: 'https://live.staticflickr.com//65535//49366042493_c48c81d58d.jpg',
-      audio:
-        'https://www.xeno-canto.org/sounds/uploaded/RFGQDPLDEC/XC518417-Kj%C3%B8ttmeis%20XC%20Helg%C3%B8ya%20Elias%20A.%20Ryberg20200108133922_079.mp3',
+      audio: {
+        src: 'https://www.xeno-canto.org/sounds/uploaded/RFGQDPLDEC/XC518417-Kj%C3%B8ttmeis%20XC%20Helg%C3%B8ya%20Elias%20A.%20Ryberg20200108133922_079.mp3',
+        duration: 95,
+      },
     },
   ],
   [
