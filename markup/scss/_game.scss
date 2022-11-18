@@ -38,6 +38,10 @@
       background-color: #4f4f4f;
     }
   }
+
+  // .game__over
+  &__over {
+  }
 }
 .categories {
   display: flex;
@@ -377,5 +381,44 @@
         background-color: #444;
       }
     }
+  }
+}
+
+.game-over {
+  padding: rem(64) rem(32);
+
+  background-color: #303030;
+  border-radius: rem(10);
+
+  text-align: center;
+
+  // .game-over__congratulation
+  &__congratulation {
+    @include adaptiveValue('font-size', 72, 32);
+    margin-bottom: rem(20);
+  }
+
+  // .game-over__message
+  &__message {
+    @include adaptiveValue('font-size', 20, 14);
+    margin-bottom: rem(50);
+  }
+
+  // .game-over__button
+
+  &__button {
+    width: 100%;
+    @include adaptiveValue('font-size', 25, 16);
+    padding: rem(15);
+    border-radius: rem(5);
+    background-color: #00bc8c;
+  }
+
+  &__image-ibg {
+    margin: 0 auto;
+    border-radius: rem(15);
+    overflow: hidden;
+    max-width: rem(400);
+    aspect-ratio: 1/1;
   }
 }
