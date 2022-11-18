@@ -14,7 +14,9 @@ class AnswersContainerView extends AbstractView {
 
   #answerClickHandler = (evt) => {
     if (!evt.target.closest('.answers__item')) return;
-    this._callback.answerClick(+evt.target.closest('.answers__item').dataset.id);
+    const id = Number(evt.target.closest('.answers__item').dataset.id);
+    console.log(id);
+    this._callback.answerClick(id);
   };
 }
 

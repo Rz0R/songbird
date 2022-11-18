@@ -53,9 +53,7 @@ class GamePagePresenter {
     this.#renderHeaderComponent();
     this.#renderGameScoreComponent();
 
-    this.#gamePageComponent = new GamePageView();
-    render(this.#gamePageContainer, this.#gamePageComponent);
-
+    this.#renderGamePageComponent();
     this.#renderCategories();
     this.#renderQuestion();
     this.#renderAnswersContainerComponent();
@@ -63,8 +61,7 @@ class GamePagePresenter {
     this.#renderAnswerInstructionComponent();
     this.#renderNexButton();
 
-    this.#footerComponent = new FooterView();
-    render(this.#gamePageContainer, this.#footerComponent);
+    this.#renderFooterComponent();
 
     this.#renderSoundComponent();
   };
@@ -87,10 +84,26 @@ class GamePagePresenter {
     this.#questionAudioPlayer.stopAudio();
     this.#renderGameScoreComponent();
     this.#soundComponent.playRightAnswerSound();
+    this.#nextButtonComponent.enableButton();
   };
 
   #errorAnswerHandler = () => {
     this.#soundComponent.playWrongAnswerSound();
+  };
+
+  #newRound = () => {
+    this.#currentAnswerId = null;
+
+    this.#questionModel.nextRound();
+    this.#renderCategories();
+    this.#questionAudioPlayer = null;
+    this.#renderQuestion();
+    this.#renderAnswerListComponent();
+
+    this.#destroyAnswerDescriptionComponent();
+    this.#renderAnswerInstructionComponent();
+
+    this.#nextButtonComponent.disableButton();
   };
 
   #renderHeaderComponent = () => {
@@ -114,6 +127,16 @@ class GamePagePresenter {
 
     replace(this.#gameScoreComponent, prevGameScoreComponent);
     remove(prevGameScoreComponent);
+  };
+
+  #renderGamePageComponent = () => {
+    this.#gamePageComponent = new GamePageView();
+    render(this.#gamePageContainer, this.#gamePageComponent);
+  };
+
+  #destroyGamePageComponent = () => {
+    remove(this.#gamePageComponent);
+    this.#gamePageComponent = null;
   };
 
   #destroyGameScoreComponent = () => {
@@ -220,7 +243,7 @@ class GamePagePresenter {
     remove(prevAnswerDescriptionComponent);
   };
 
-  #destroyAnswerDescriptionComponen = () => {
+  #destroyAnswerDescriptionComponent = () => {
     remove(this.#answerDescriptionAudioPlayer);
     remove(this.#answerDescriptionComponent);
     this.#answerDescriptionAudioPlayer = null;
@@ -238,14 +261,24 @@ class GamePagePresenter {
   };
 
   #renderNexButton = () => {
-    this.#nextButtonComponent = new NextButtonView(true);
-    this.#nextButtonComponent.setButtonClickHandler(() => console.log('next btn'));
+    this.#nextButtonComponent = new NextButtonView(this.#questionModel.isWin);
+    this.#nextButtonComponent.setButtonClickHandler(this.#newRound);
     render(this.#gamePageComponent.getGameContainer(), this.#nextButtonComponent);
   };
 
   #destroyNextButtonComponet = () => {
     remove(this.#nextButtonComponent);
     this.#nextButtonComponent = null;
+  };
+
+  #renderFooterComponent = () => {
+    this.#footerComponent = new FooterView();
+    render(this.#gamePageContainer, this.#footerComponent);
+  };
+
+  #destroyFooterComponent = () => {
+    remove(this.#footerComponent);
+    this.#footerComponent = null;
   };
 
   #renderSoundComponent = () => {

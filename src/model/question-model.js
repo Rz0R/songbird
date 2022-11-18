@@ -87,6 +87,14 @@ class QuestionModel {
     };
   };
 
+  nextRound = () => {
+    this.#round++;
+    this.#isWin = false;
+    this.#userAnswers = null;
+    this.#currentQuestion = null;
+    this.#penaltyPoints = 0;
+  };
+
   addRoundWinEvtListener = (callback) => {
     this.#winEvtListeners.add(callback);
   };
