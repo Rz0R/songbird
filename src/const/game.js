@@ -7,3 +7,5 @@ export const ANSWER = {
   CORRECT: 'CORRECT',
   INCORRECT: 'INCORRECT',
 };
+
+export const MAX_SCORE = 30;

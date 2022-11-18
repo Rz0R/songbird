@@ -16,6 +16,7 @@ import AnswerInstructionView from '../view/answer-instruction-view';
 import NextButtonView from '../view/next-button-view';
 import FooterView from '../view/footer-view';
 import AudioPlayerView from '../view/audio-player-view';
+import ResultsView from '../view/results-view';
 import SoundView from '../view/sound-view';
 
 const insructionMessages = ['Послушайте плеер.', 'Выберите птицу из списка.'];
@@ -36,6 +37,7 @@ class GamePagePresenter {
   #answerInstructionComponent = null;
   #answerDescriptionAudioPlayer = null;
   #nextButtonComponent = null;
+  #resultsComponent = null;
   #footerComponent = null;
   #soundComponent = null;
 
@@ -49,7 +51,7 @@ class GamePagePresenter {
     this.#questionModel.addPenaltyEvtListener(this.#errorAnswerHandler);
   }
 
-  renderPage = () => {
+  renderGamePage = () => {
     this.#renderHeaderComponent();
     this.#renderGameScoreComponent();
 
@@ -66,6 +68,38 @@ class GamePagePresenter {
     this.#renderSoundComponent();
   };
 
+  destroyGamePage = () => {
+    this.#destroyHeaderComponent();
+    this.#destroyGameScoreComponent();
+
+    this.#destroyCategoriesComponent();
+    this.#destroyQuestionComponent();
+    this.#destroyAnswerListComponent();
+    this.#destroyAnswerInstructionComponent();
+    this.#destroyAnswerDescriptionComponent();
+    this.#destroyAnswersContainerComponent();
+    this.#destroyNextButtonComponet();
+
+    this.#destroyGamePageComponent();
+
+    this.#destroyFooterComponent();
+    this.#destroySoundComponent();
+
+    this.#currentAnswerId = null;
+  };
+
+  renderResultsPage = () => {
+    this.#destroyCategoriesComponent();
+    this.#destroyQuestionComponent();
+    this.#destroyAnswerListComponent();
+    this.#destroyAnswerInstructionComponent();
+    this.#destroyAnswerDescriptionComponent();
+    this.#destroyAnswersContainerComponent();
+    this.#destroyNextButtonComponet();
+
+    this.#renderResutlsComponent();
+  };
+
   #answerClickHandler = (id) => {
     if (this.#currentAnswerId === id) return;
 
@@ -80,6 +114,15 @@ class GamePagePresenter {
     this.#renderAnswerDescriptionComponent(id);
   };
 
+  #tryAgainHadler = () => {
+    this.#destroyResultsComponent();
+    this.destroyGamePage();
+
+    this.#questionModel.newGame();
+
+    this.renderGamePage();
+  };
+
   #roundWinHadler = () => {
     this.#questionAudioPlayer.stopAudio();
     this.#renderGameScoreComponent();
@@ -92,6 +135,12 @@ class GamePagePresenter {
   };
 
   #newRound = () => {
+    if (this.#questionModel.isGameOver()) {
+      this.renderResultsPage();
+      this.#soundComponent.playVictorySound();
+      return;
+    }
+
     this.#currentAnswerId = null;
 
     this.#questionModel.nextRound();
@@ -279,6 +328,17 @@ class GamePagePresenter {
   #destroyFooterComponent = () => {
     remove(this.#footerComponent);
     this.#footerComponent = null;
+  };
+
+  #renderResutlsComponent = () => {
+    this.#resultsComponent = new ResultsView(this.#questionModel.score);
+    this.#resultsComponent.setButtonClickHandler(this.#tryAgainHadler);
+    render(this.#gamePageComponent.getGameContainer(), this.#resultsComponent);
+  };
+
+  #destroyResultsComponent = () => {
+    remove(this.#resultsComponent);
+    this.#resultsComponent = null;
   };
 
   #renderSoundComponent = () => {

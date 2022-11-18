@@ -1,16 +1,17 @@
 import AbstractView from './abstract-view';
+import { MAX_SCORE } from '../const/game';
 
 const createCongratsImgTemplate = () => `<div class="game-over__image-ibg">
     <img src="/assets/img/congrats.jpg" alt="congratulation" />
   </div>`;
 
 const createResultTemplate = (score) => {
-  const isWin = score >= 30;
+  const isWin = score >= MAX_SCORE;
 
   return `<div class="game__over game-over">
     <h1 class="game-over__congratulation">Поздравляем!</h1>
     <p class="game-over__message">Вы прошли викторину и набрали ${score} из 30 возможных баллов</p>
-    <button class="game-over__button" hidden=${isWin}>Попробовать еще раз!</button>
+    <button class="game-over__button" ${isWin ? 'hidden' : ''}>Попробовать еще раз!</button>
     ${isWin ? createCongratsImgTemplate() : ''} 
   </div>`;
 };
@@ -18,18 +19,18 @@ const createResultTemplate = (score) => {
 class ResultsView extends AbstractView {
   #score = 0;
 
-  constructor() {
+  constructor(score) {
     super();
-    this.#score = this.#score;
+    this.#score = score;
   }
 
   get template() {
-    return createResultTemplate();
+    return createResultTemplate(this.#score);
   }
 
   setButtonClickHandler = (callback) => {
     this._callback.buttonClick = callback;
-    this.element.addEventListener('click', this.#buttonClickHandler);
+    this.element.querySelector('.game-over__button').addEventListener('click', this.#buttonClickHandler);
   };
 
   #buttonClickHandler = () => {

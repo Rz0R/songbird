@@ -95,6 +95,19 @@ class QuestionModel {
     this.#penaltyPoints = 0;
   };
 
+  newGame = () => {
+    this.#round = 0;
+    this.#score = 0;
+    this.#isWin = false;
+    this.#userAnswers = null;
+    this.#currentQuestion = null;
+    this.#penaltyPoints = 0;
+  };
+
+  isGameOver = () => {
+    return this.#round + 1 >= birdsData.length;
+  };
+
   addRoundWinEvtListener = (callback) => {
     this.#winEvtListeners.add(callback);
   };
@@ -119,7 +132,6 @@ class QuestionModel {
 
   setPenalty = () => {
     this.#penaltyPoints++;
-    // console.log(this.#penaltyEvtListeners);
     this.#penaltyEvtListeners.forEach((callback) => callback());
   };
 }
