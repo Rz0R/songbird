@@ -43,15 +43,18 @@ class GamePagePresenter {
 
   #currentAnswerId = null;
 
-  constructor(gamePageContainer) {
-    this.#gamePageContainer = gamePageContainer;
+  #goToHomePageHandler = null;
+
+  constructor({ root, goToHomePageHandler }) {
+    this.#gamePageContainer = root;
+    this.#goToHomePageHandler = goToHomePageHandler;
 
     this.#questionModel = new QuestionModel();
     this.#questionModel.addRoundWinEvtListener(this.#roundWinHadler);
     this.#questionModel.addPenaltyEvtListener(this.#errorAnswerHandler);
   }
 
-  renderGamePage = () => {
+  renderPage = () => {
     this.#renderHeaderComponent();
     this.#renderGameScoreComponent();
 
@@ -68,7 +71,7 @@ class GamePagePresenter {
     this.#renderSoundComponent();
   };
 
-  destroyGamePage = () => {
+  destroyPage = () => {
     this.#destroyHeaderComponent();
     this.#destroyGameScoreComponent();
 
@@ -86,6 +89,7 @@ class GamePagePresenter {
     this.#destroySoundComponent();
 
     this.#currentAnswerId = null;
+    this.#questionModel.newGame();
   };
 
   renderResultsPage = () => {
@@ -116,11 +120,11 @@ class GamePagePresenter {
 
   #tryAgainHadler = () => {
     this.#destroyResultsComponent();
-    this.destroyGamePage();
+    this.destroyPage();
 
     this.#questionModel.newGame();
 
-    this.renderGamePage();
+    this.renderPage();
   };
 
   #roundWinHadler = () => {
@@ -157,6 +161,7 @@ class GamePagePresenter {
 
   #renderHeaderComponent = () => {
     this.#headerComponent = new HeaderView();
+    this.#headerComponent.setLogoButtonClickHandler(this.#goToHomePageHandler);
     render(this.#gamePageContainer, this.#headerComponent);
   };
 

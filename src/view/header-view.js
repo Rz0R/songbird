@@ -15,6 +15,16 @@ class HeaderView extends AbstractView {
   getHeaderContainer = () => {
     return this.element.querySelector('.header__container');
   };
+
+  setLogoButtonClickHandler = (callback) => {
+    this._callback.logoButtonClick = callback;
+    this.element.querySelector('.header__logo').addEventListener('click', this.#logoButtonClickHandler);
+  };
+
+  #logoButtonClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.logoButtonClick();
+  };
 }
 
 export default HeaderView;

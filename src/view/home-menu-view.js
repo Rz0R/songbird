@@ -23,7 +23,7 @@ const createENLangSvgTemplate = () =>
 const createHomeMenuTemplate = (lang = LANGUAGE.EN) => {
   let svgEl = lang === LANGUAGE.RU ? createRULangSvgTemplate() : createENLangSvgTemplate();
   return `<ul class="home__menu menu-home">
-      <li class="menu-home__item">
+      <li class="menu-home__item menu-home__item_new-game">
         <a href="#" class="menu-home__link">Игра</a>
       </li>
       <li class="menu-home__item">
@@ -57,6 +57,16 @@ class HomeMenuView extends AbstractView {
       this.#lang === LANGUAGE.RU ? createElement(createRULangSvgTemplate) : createElement(createENLangSvgTemplate);
     replace(svg, currentSvgEl);
     this.element.querySelector('.lang__text').innerText = this.#lang === LANGUAGE.RU ? 'RU' : 'EN';
+  };
+
+  setNewGameButtonHandler = (callback) => {
+    this._callback.newGameButtonClick = callback;
+    this.element.querySelector('.menu-home__item_new-game').addEventListener('click', this.#newGameButtonHandler);
+  };
+
+  #newGameButtonHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.newGameButtonClick();
   };
 
   setLangButtonClickHandler = (callback) => {
