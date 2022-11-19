@@ -4,7 +4,6 @@ const createHeaderTemplate = () =>
   `<header class="header">
     <div class="header__container">
       <a href="#" class="header__logo logo"></a>
-
     </div>
   </header>`;
 

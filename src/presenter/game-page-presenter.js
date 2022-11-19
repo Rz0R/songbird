@@ -156,7 +156,7 @@ class GamePagePresenter {
   };
 
   #renderHeaderComponent = () => {
-    this.#headerComponent = new HeaderView(this.#questionModel.score);
+    this.#headerComponent = new HeaderView();
     render(this.#gamePageContainer, this.#headerComponent);
   };
 
