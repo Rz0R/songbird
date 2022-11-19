@@ -1,0 +1,61 @@
+.home {
+  background: url('/markup/assets/img/bg.webp');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex: 1 1 auto;
+  }
+}
+
+.menu-home {
+  font-size: rem(25);
+  // .menu-home__item
+  &__item {
+    padding: rem(15);
+    border-radius: rem(5);
+    background-color: #00bc8c;
+    width: rem(200);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-bottom: rem(20);
+    }
+  }
+
+  &__link {
+  }
+
+  &__lang {
+    flex: auto;
+  }
+}
+
+.lang {
+  font-size: rem(25);
+  line-height: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: rem(10);
+
+  &__img-ibg {
+    display: block;
+    width: rem(40);
+    height: rem(25);
+  }
+}
