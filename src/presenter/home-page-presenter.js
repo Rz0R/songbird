@@ -13,10 +13,12 @@ class HomePagePresenter {
   #footerComponent = null;
 
   #newGameHandler = null;
+  #goToGalleryPageHandler = null;
 
-  constructor({ root, newGameHandler }) {
+  constructor({ root, newGameHandler, goToGalleryPageHandler }) {
     this.#homePageContainer = root;
     this.#newGameHandler = newGameHandler;
+    this.#goToGalleryPageHandler = goToGalleryPageHandler;
   }
 
   renderPage = () => {
@@ -48,15 +50,16 @@ class HomePagePresenter {
   };
 
   #destroyHomePageComponent = () => {
+    this.#destroyHomeMenuComponent();
+
     remove(this.#homePageComponent);
     this.#homePageComponent = null;
-
-    this.#destroyHomeMenuComponent();
   };
 
   #renderHomeMenuComponent = () => {
     this.#homeMenuComponent = new HomeMenuView();
     this.#homeMenuComponent.setNewGameButtonHandler(this.#newGameHandler);
+    this.#homeMenuComponent.setGalleryButtonHandler(this.#goToGalleryPageHandler);
     // this.#homeMenuComponent.setLangButtonClickHandler(this.destroyHomePage);
     render(this.#homePageComponent.getHomePageContainer(), this.#homeMenuComponent);
   };

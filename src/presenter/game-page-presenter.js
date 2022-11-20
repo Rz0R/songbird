@@ -45,11 +45,11 @@ class GamePagePresenter {
 
   #goToHomePageHandler = null;
 
-  constructor({ root, goToHomePageHandler }) {
+  constructor({ root, questionModel, goToHomePageHandler }) {
     this.#gamePageContainer = root;
     this.#goToHomePageHandler = goToHomePageHandler;
 
-    this.#questionModel = new QuestionModel();
+    this.#questionModel = questionModel;
     this.#questionModel.addRoundWinEvtListener(this.#roundWinHadler);
     this.#questionModel.addPenaltyEvtListener(this.#errorAnswerHandler);
   }

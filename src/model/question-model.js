@@ -87,6 +87,20 @@ class QuestionModel {
     };
   };
 
+  getAllDescripons = () => {
+    const flatBirdData = birdsData.flat();
+
+    return flatBirdData.map((item) => {
+      return {
+        name: item.name[this.#langauge],
+        species: item.species,
+        description: item.description[this.#langauge],
+        imgSrc: item.image,
+        audio: item.audio,
+      };
+    });
+  };
+
   nextRound = () => {
     this.#round++;
     this.#isWin = false;

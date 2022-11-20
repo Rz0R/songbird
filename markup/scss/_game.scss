@@ -422,3 +422,15 @@
     aspect-ratio: 1/1;
   }
 }
+
+.gallery {
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: rem(20);
+
+    @media (max-width: em(1100)) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

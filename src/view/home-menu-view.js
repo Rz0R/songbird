@@ -26,7 +26,7 @@ const createHomeMenuTemplate = (lang = LANGUAGE.EN) => {
       <li class="menu-home__item menu-home__item_new-game">
         <a href="#" class="menu-home__link">Игра</a>
       </li>
-      <li class="menu-home__item">
+      <li class="menu-home__item menu-home__item_gallery">
         <a href="#" class="menu-home__link">Галерея</a>
       </li>
       <li class="menu-home__item">
@@ -67,6 +67,16 @@ class HomeMenuView extends AbstractView {
   #newGameButtonHandler = (evt) => {
     evt.preventDefault();
     this._callback.newGameButtonClick();
+  };
+
+  setGalleryButtonHandler = (callback) => {
+    this._callback.galleryButtonClick = callback;
+    this.element.querySelector('.menu-home__item_gallery').addEventListener('click', this.#galleryButtonHandler);
+  };
+
+  #galleryButtonHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.galleryButtonClick();
   };
 
   setLangButtonClickHandler = (callback) => {
