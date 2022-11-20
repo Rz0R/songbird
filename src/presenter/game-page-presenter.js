@@ -1,8 +1,7 @@
 import { remove, render, replace } from '../utils/render';
 import { RenderPosition } from '../const/const';
 import { DEFAULT_ANSWER, DEFAULT_IMG } from '../const/game';
-
-import QuestionModel from '../model/question-model';
+import { TRANSLATION } from '../const/translation';
 
 import HeaderView from '../view/header-view';
 import GameScoreView from '../view/game-score-view';
@@ -19,10 +18,9 @@ import AudioPlayerView from '../view/audio-player-view';
 import ResultsView from '../view/results-view';
 import SoundView from '../view/sound-view';
 
-const insructionMessages = ['Послушайте плеер.', 'Выберите птицу из списка.'];
-
 class GamePagePresenter {
   #questionModel = null;
+  #languageModel = null;
 
   #gamePageContainer = null;
   #headerComponent = null;
@@ -45,11 +43,12 @@ class GamePagePresenter {
 
   #goToHomePageHandler = null;
 
-  constructor({ root, questionModel, goToHomePageHandler }) {
+  constructor({ root, questionModel, languageModel, goToHomePageHandler }) {
     this.#gamePageContainer = root;
     this.#goToHomePageHandler = goToHomePageHandler;
 
     this.#questionModel = questionModel;
+    this.#languageModel = languageModel;
     this.#questionModel.addRoundWinEvtListener(this.#roundWinHadler);
     this.#questionModel.addPenaltyEvtListener(this.#errorAnswerHandler);
   }
@@ -172,7 +171,7 @@ class GamePagePresenter {
 
   #renderGameScoreComponent = () => {
     const prevGameScoreComponent = this.#gameScoreComponent;
-    this.#gameScoreComponent = new GameScoreView(this.#questionModel.score);
+    this.#gameScoreComponent = new GameScoreView(this.#questionModel.score, this.#languageModel.lang);
 
     if (!prevGameScoreComponent) {
       render(this.#headerComponent.getHeaderContainer(), this.#gameScoreComponent);
@@ -305,7 +304,7 @@ class GamePagePresenter {
   };
 
   #renderAnswerInstructionComponent = () => {
-    this.#answerInstructionComponent = new AnswerInstructionView(insructionMessages);
+    this.#answerInstructionComponent = new AnswerInstructionView(this.#languageModel.lang);
     render(this.#answersContainerComponent, this.#answerInstructionComponent);
   };
 
@@ -315,7 +314,7 @@ class GamePagePresenter {
   };
 
   #renderNexButton = () => {
-    this.#nextButtonComponent = new NextButtonView(this.#questionModel.isWin);
+    this.#nextButtonComponent = new NextButtonView(this.#questionModel.isWin, this.#languageModel.lang);
     this.#nextButtonComponent.setButtonClickHandler(this.#newRound);
     render(this.#gamePageComponent.getGameContainer(), this.#nextButtonComponent);
   };
@@ -336,7 +335,7 @@ class GamePagePresenter {
   };
 
   #renderResutlsComponent = () => {
-    this.#resultsComponent = new ResultsView(this.#questionModel.score);
+    this.#resultsComponent = new ResultsView(this.#questionModel.score, this.#languageModel.lang);
     this.#resultsComponent.setButtonClickHandler(this.#tryAgainHadler);
     render(this.#gamePageComponent.getGameContainer(), this.#resultsComponent);
   };

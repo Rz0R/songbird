@@ -1,5 +1,3 @@
-import AbstractObservable from './abstract-observable';
-
 import { birdsData, categories } from '../const/birds-data';
 import { LANGUAGE } from '../const/const';
 import { ANSWER } from '../const/game';
@@ -9,7 +7,7 @@ class QuestionModel {
   #winEvtListeners = new Set();
   #penaltyEvtListeners = new Set();
 
-  #langauge = LANGUAGE.RU;
+  #langauge = LANGUAGE.EN;
   #round = 0;
   #isWin = false;
   #userAnswers = null;
@@ -18,6 +16,10 @@ class QuestionModel {
   #score = 0;
   #maxRoundPoints = 5;
   #penaltyPoints = 0;
+
+  constructor(lang = LANGUAGE.EN) {
+    this.#langauge = lang;
+  }
 
   getCategories = () => {
     return categories[this.#langauge].map((category, ind) => {
@@ -35,6 +37,10 @@ class QuestionModel {
 
   setActiveCategory = (ind) => {
     this.#round = +ind;
+  };
+
+  setLangauge = (lang) => {
+    this.#langauge = lang;
   };
 
   getQuestion = () => {

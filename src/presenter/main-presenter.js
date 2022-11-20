@@ -3,11 +3,15 @@ import GamePagePresenter from './game-page-presenter';
 import GalleryPagePresenter from './gallery-page-presenter';
 
 import QuestionModel from '../model/question-model';
+import LanguageModel from '../model/language-model';
+
+import { loadSavedLanguage, saveLanguage } from '../utils/save';
 
 class MainPresenter {
   #root = null;
 
   #questionModel = null;
+  #languageModel = null;
 
   #gamePagePresenter = null;
   #homePagePresenter = null;
@@ -19,6 +23,8 @@ class MainPresenter {
     this.#root = root;
 
     this.#questionModel = new QuestionModel();
+    this.#languageModel = new LanguageModel(this.#loadSavedLanguage());
+    this.#languageModel.addObserver(this.#saveLanguage);
   }
 
   init = () => {
@@ -26,10 +32,13 @@ class MainPresenter {
       root: this.#root,
       newGameHandler: this.#newGameHandler,
       goToGalleryPageHandler: this.#goToGalleryPageHandler,
+      toggleLangHandler: this.#toggleLangHandler,
+      languageModel: this.#languageModel,
     });
     this.#gamePagePresenter = new GamePagePresenter({
       root: this.#root,
       questionModel: this.#questionModel,
+      languageModel: this.#languageModel,
       goToHomePageHandler: this.#goToHomePageHandler,
     });
     this.#galleryPagePresenter = new GalleryPagePresenter({
@@ -42,9 +51,9 @@ class MainPresenter {
   };
 
   render = () => {
-    this.#currentPage = this.#galleryPagePresenter;
+    // this.#currentPage = this.#galleryPagePresenter;
     // this.#currentPage = this.#gamePagePresenter;
-    // this.#currentPage = this.#homePagePresenter;
+    this.#currentPage = this.#homePagePresenter;
     this.#currentPage.renderPage();
   };
 
@@ -64,6 +73,21 @@ class MainPresenter {
     this.#currentPage.destroyPage();
     this.#currentPage = this.#galleryPagePresenter;
     this.#currentPage.renderPage();
+  };
+
+  #toggleLangHandler = () => {
+    this.#languageModel.toggleLang();
+    this.#currentPage.destroyPage();
+    this.#currentPage.renderPage();
+    this.#questionModel.setLangauge(this.#languageModel.lang);
+  };
+
+  #loadSavedLanguage = () => {
+    return loadSavedLanguage();
+  };
+
+  #saveLanguage = (lang) => {
+    saveLanguage(lang);
   };
 }
 

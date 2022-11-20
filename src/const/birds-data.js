@@ -1,6 +1,8 @@
+import { LANGUAGE } from './const';
+
 export const categories = {
-  ru: ['Разминка', 'Воробьиные', 'Лесные птицы', 'Певчие птицы', 'Хищные птицы', 'Морские птицы'],
-  en: ['Warm-up', 'Sparrows', 'Forest birds', 'Songbirds', 'Birds of prey', 'Seabirds'],
+  [LANGUAGE.RU]: ['Разминка', 'Воробьиные', 'Лесные птицы', 'Певчие птицы', 'Хищные птицы', 'Морские птицы'],
+  [LANGUAGE.EN]: ['Warm-up', 'Sparrows', 'Forest birds', 'Songbirds', 'Birds of prey', 'Seabirds'],
 };
 
 export const birdsData = [

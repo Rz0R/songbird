@@ -1,5 +1,6 @@
 import AbstractView from './abstract-view';
 import { LANGUAGE } from '../const/const';
+import { TRANSLATION } from '../const/translation';
 import { replace, createElement } from '../utils/render';
 
 const createRULangSvgTemplate = () =>
@@ -24,10 +25,10 @@ const createHomeMenuTemplate = (lang = LANGUAGE.EN) => {
   let svgEl = lang === LANGUAGE.RU ? createRULangSvgTemplate() : createENLangSvgTemplate();
   return `<ul class="home__menu menu-home">
       <li class="menu-home__item menu-home__item_new-game">
-        <a href="#" class="menu-home__link">Игра</a>
+        <a href="#" class="menu-home__link">${TRANSLATION.NEW_GAME[lang]}</a>
       </li>
       <li class="menu-home__item menu-home__item_gallery">
-        <a href="#" class="menu-home__link">Галерея</a>
+        <a href="#" class="menu-home__link">${TRANSLATION.GALLERY[lang]}</a>
       </li>
       <li class="menu-home__item">
         <button class="menu-home__lang lang">

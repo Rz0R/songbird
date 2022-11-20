@@ -1,17 +1,22 @@
 import AbstractView from './abstract-view';
+import { LANGUAGE } from '../const/const';
+import { TRANSLATION } from '../const/translation';
 
-const createGameScoreTemplate = (score) =>
-  `<h5 class="header__score score">Score: <span class="score__value">${score}</span></h5>`;
+const createGameScoreTemplate = (score, lang) =>
+  `<h5 class="header__score score">${TRANSLATION.SCORE[lang]}: <span class="score__value">${score}</span></h5>`;
 
 class GameScoreView extends AbstractView {
   #score = 0;
-  constructor(score) {
+  #lang;
+
+  constructor(score, lang = LANGUAGE.EN) {
     super();
     this.#score = score;
+    this.#lang = lang;
   }
 
   get template() {
-    return createGameScoreTemplate(this.#score);
+    return createGameScoreTemplate(this.#score, this.#lang);
   }
 }
 

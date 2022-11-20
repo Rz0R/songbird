@@ -9,3 +9,5 @@ export const LANGUAGE = {
   RU: 'ru',
   EN: 'en',
 };
+
+export const SAVE_LANG_KEY = 'rz0r-lang';

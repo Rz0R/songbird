@@ -1,18 +1,22 @@
 import AbstractView from './abstract-view';
+import { LANGUAGE } from '../const/const';
+import { TRANSLATION } from '../const/translation';
 
-const createNextButtonTemplate = (isDisbled) =>
-  `<button disabled=${isDisbled} class="game__next-btn">Next Level</button>`;
+const createNextButtonTemplate = (isDisbled, lang) =>
+  `<button disabled=${isDisbled} class="game__next-btn">${TRANSLATION.NEXT_LEVEL[lang]}</button>`;
 
 class NextButtonView extends AbstractView {
   #isDisabled;
+  #lang;
 
-  constructor(isDisbled = true) {
+  constructor(isDisbled = true, lang = LANGUAGE.EN) {
     super();
     this.#isDisabled = isDisbled;
+    this.#lang = lang;
   }
 
   get template() {
-    return createNextButtonTemplate(this.#isDisabled);
+    return createNextButtonTemplate(this.#isDisabled, this.#lang);
   }
 
   setButtonClickHandler = (callback) => {
