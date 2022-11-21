@@ -72,6 +72,11 @@ class QuestionModel {
     if (this.#isWin) return this.#userAnswers;
 
     let userAnswer = this.#userAnswers.find((answer) => answer.id === +id);
+
+    if (userAnswer.answer === ANSWER.INCORRECT) {
+      return this.#userAnswers;
+    }
+
     userAnswer = { ...userAnswer, answer: id === this.getQuestion().id ? ANSWER.CORRECT : ANSWER.INCORRECT };
     this.#userAnswers = updateItem(this.#userAnswers, userAnswer);
 
