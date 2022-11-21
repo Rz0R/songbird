@@ -10,6 +10,6 @@ export const loadSavedLanguage = () => {
     return localStorage.getItem(SAVE_LANG_KEY);
   }
 
-  saveLanguage(LANGUAGE.EN);
-  return LANGUAGE.EN;
+  saveLanguage(LANGUAGE.RU);
+  return LANGUAGE.RU;
 };

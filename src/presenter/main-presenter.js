@@ -22,8 +22,9 @@ class MainPresenter {
   constructor(root) {
     this.#root = root;
 
-    this.#questionModel = new QuestionModel();
-    this.#languageModel = new LanguageModel(this.#loadSavedLanguage());
+    const lang = this.#loadSavedLanguage();
+    this.#questionModel = new QuestionModel(lang);
+    this.#languageModel = new LanguageModel(lang);
     this.#languageModel.addObserver(this.#saveLanguage);
   }
 

@@ -1,7 +1,6 @@
 import { remove, render, replace } from '../utils/render';
 import { RenderPosition } from '../const/const';
 import { DEFAULT_ANSWER, DEFAULT_IMG } from '../const/game';
-import { TRANSLATION } from '../const/translation';
 
 import HeaderView from '../view/header-view';
 import GameScoreView from '../view/game-score-view';
