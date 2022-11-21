@@ -54,7 +54,6 @@ class GamePagePresenter {
 
   renderPage = () => {
     this.#renderHeaderComponent();
-    this.#renderGameScoreComponent();
 
     this.#renderGamePageComponent();
     this.#renderCategories();
@@ -71,9 +70,9 @@ class GamePagePresenter {
 
   destroyPage = () => {
     this.#destroyHeaderComponent();
-    this.#destroyGameScoreComponent();
 
     this.#destroyCategoriesComponent();
+    // this.#destroyGameScoreComponent();
     this.#destroyQuestionComponent();
     this.#destroyAnswerListComponent();
     this.#destroyAnswerInstructionComponent();
@@ -127,7 +126,6 @@ class GamePagePresenter {
 
   #roundWinHadler = () => {
     this.#questionAudioPlayer.stopAudio();
-    this.#renderGameScoreComponent();
     this.#soundComponent.playRightAnswerSound();
     this.#nextButtonComponent.enableButton();
   };
@@ -168,19 +166,6 @@ class GamePagePresenter {
     this.#headerComponent = null;
   };
 
-  #renderGameScoreComponent = () => {
-    const prevGameScoreComponent = this.#gameScoreComponent;
-    this.#gameScoreComponent = new GameScoreView(this.#questionModel.score, this.#languageModel.lang);
-
-    if (!prevGameScoreComponent) {
-      render(this.#headerComponent.getHeaderContainer(), this.#gameScoreComponent);
-      return;
-    }
-
-    replace(this.#gameScoreComponent, prevGameScoreComponent);
-    remove(prevGameScoreComponent);
-  };
-
   #renderGamePageComponent = () => {
     this.#gamePageComponent = new GamePageView();
     render(this.#gamePageContainer, this.#gamePageComponent);
@@ -189,11 +174,6 @@ class GamePagePresenter {
   #destroyGamePageComponent = () => {
     remove(this.#gamePageComponent);
     this.#gamePageComponent = null;
-  };
-
-  #destroyGameScoreComponent = () => {
-    remove(this.#gameScoreComponent);
-    this.#gameScoreComponent = null;
   };
 
   #renderCategories = () => {
@@ -234,10 +214,12 @@ class GamePagePresenter {
 
     if (!prevQuestionComponent) {
       render(this.#gamePageComponent.getGameContainer(), this.#questionComponent);
+      this.#renderGameScoreComponent();
       return;
     }
 
     replace(this.#questionComponent, prevQuestionComponent);
+    this.#renderGameScoreComponent();
     remove(prevQuestionComponent);
   };
 
@@ -246,6 +228,17 @@ class GamePagePresenter {
     remove(this.#questionComponent);
     this.#questionAudioPlayer = null;
     this.#questionComponent = null;
+    this.#destroyGameScoreComponent();
+  };
+
+  #renderGameScoreComponent = () => {
+    this.#gameScoreComponent = new GameScoreView(this.#questionModel.score, this.#languageModel.lang);
+    render(this.#questionComponent.getQuestionTopContainer(), this.#gameScoreComponent);
+  };
+
+  #destroyGameScoreComponent = () => {
+    remove(this.#gameScoreComponent);
+    this.#gameScoreComponent = null;
   };
 
   #renderAnswersContainerComponent = () => {

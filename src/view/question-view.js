@@ -6,7 +6,9 @@ const createQuestionTemplate = (imgSrc, answer) =>
       <img src="${imgSrc}" alt="bird" />
     </div>
     <div class="question__content">
-      <h3 class="question__answer">${answer}</h3>
+      <div class="question__top">
+        <h3 class="question__answer">${answer}</h3>
+      </div>
     </div>
   </div>`;
 
@@ -26,6 +28,10 @@ class QuestionView extends AbstractView {
 
   getQuestionContentContainer = () => {
     return this.element.querySelector('.question__content');
+  };
+
+  getQuestionTopContainer = () => {
+    return this.element.querySelector('.question__top');
   };
 }
 

@@ -119,18 +119,23 @@
     gap: rem(20);
   }
 
-  // .question__answer
+  &__top {
+    display: flex;
+    border-bottom: 1px solid #555;
+  }
 
+  // .question__answer
   &__answer {
     font-size: rem(32);
     padding-bottom: rem(10);
+    flex: 1 1 auto;
   }
 
   &__science-name {
     padding-bottom: rem(5);
   }
 
-  &__answer,
+  &_with-description &__answer,
   &__science-name {
     border-bottom: 1px solid #555;
 
@@ -320,6 +325,7 @@
 
     @media (max-width: em(1100)) {
       flex: 1 0 100%;
+      min-height: unset;
     }
   }
 
