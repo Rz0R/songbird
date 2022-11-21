@@ -164,6 +164,10 @@ class AudioPlayerView extends AbstractView {
     this.#togglePlayButtonIcon();
   };
 
+  setPlayButtonClickHandler = (callback) => {
+    this._callback.playButtonClick = callback;
+  };
+
   #togglePlayButtonIcon = () => {
     const svg = this.#isPlay ? this.#pauseSvgElement : this.#playSvgElement;
     replace(svg, this.#playButtonElement.firstElementChild);
@@ -174,6 +178,9 @@ class AudioPlayerView extends AbstractView {
       if (this.#isPlay) {
         this.stopAudio();
       } else {
+        if (this._callback.playButtonClick) {
+          this._callback.playButtonClick();
+        }
         this.playAudio();
       }
     });

@@ -72,6 +72,14 @@ class GalleryPagePresenter {
       const { descriptionComponent, audioPlayerComponent } = component;
       render(this.#galleryPageComponent.getGalleryPageContainer(), descriptionComponent);
       render(descriptionComponent.getAnswerContentComponent(), audioPlayerComponent);
+      audioPlayerComponent.setPlayButtonClickHandler(this.#stopAllAudioPlayersHandler);
+    }
+  };
+
+  #stopAllAudioPlayersHandler = () => {
+    for (const component of this.#galleryDescripionComponents) {
+      const { audioPlayerComponent } = component;
+      audioPlayerComponent.stopAudio();
     }
   };
 
