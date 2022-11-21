@@ -1,6 +1,8 @@
 import { remove, render } from '../utils/render';
+import { ACTIVE_PAGE } from '../const/const';
 
 import HeaderView from '../view/header-view';
+import HeaderMenuView from '../view/header-menu-view';
 import GalleryPageView from '../view/gallery-page-view';
 import AnswerDescriptionView from '../view/answer-description-view';
 import AudioPlayerView from '../view/audio-player-view';
@@ -9,21 +11,28 @@ import FooterView from '../view/footer-view';
 class GalleryPagePresenter {
   #galleryPageContainer = null;
   #headerComponent = null;
+  #headerMenuComponent = null;
   #galleryPageComponent = null;
   #galleryDescripionComponents = [];
   #footerComponent = null;
 
   #questionModel = null;
-  #goToHomePageHandler = null;
+  #languageModel = null;
 
-  constructor({ root, questionModel, goToHomePageHandler }) {
+  #goToHomePageHandler = null;
+  #newGameHandler = null;
+
+  constructor({ root, questionModel, languageModel, goToHomePageHandler, newGameHandler }) {
     this.#galleryPageContainer = root;
     this.#goToHomePageHandler = goToHomePageHandler;
+    this.#newGameHandler = newGameHandler;
     this.#questionModel = questionModel;
+    this.#languageModel = languageModel;
   }
 
   renderPage = () => {
     this.#renderHeaderComponent();
+    this.#renderHeaderMenuComponent();
     this.#renderGalleryPageComponent();
 
     this.#renderDesriptionComponents();
@@ -32,6 +41,7 @@ class GalleryPagePresenter {
   };
 
   destroyPage = () => {
+    this.#destroyHeaderMenuComponent();
     this.#destroyHeaderComponent();
     this.#destroyGalleryPageComponent();
     this.#destroyFooterComponent();
@@ -46,6 +56,18 @@ class GalleryPagePresenter {
   #destroyHeaderComponent = () => {
     remove(this.#headerComponent);
     this.#headerComponent = null;
+  };
+
+  #renderHeaderMenuComponent = () => {
+    this.#headerMenuComponent = new HeaderMenuView(this.#languageModel.lang, ACTIVE_PAGE.GALLERY);
+    this.#headerMenuComponent.setGameButtonHandler(this.#newGameHandler);
+    this.#headerMenuComponent.setHomeButtonHandler(this.#goToHomePageHandler);
+    render(this.#headerComponent.getHeaderContainer(), this.#headerMenuComponent);
+  };
+
+  #destroyHeaderMenuComponent = () => {
+    remove(this.#headerMenuComponent);
+    this.#headerMenuComponent = null;
   };
 
   #renderGalleryPageComponent = () => {

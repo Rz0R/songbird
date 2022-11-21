@@ -1,7 +1,9 @@
 import { remove, render } from '../utils/render';
+import { ACTIVE_PAGE } from '../const/const';
 
 import HomePageView from '../view/home-page-view';
 import HeaderView from '../view/header-view';
+import HeaderMenuView from '../view/header-menu-view';
 import HomeMenuView from '../view/home-menu-view';
 import FooterView from '../view/footer-view';
 
@@ -9,6 +11,7 @@ class HomePagePresenter {
   #homePageContainer = null;
   #headerComponent = null;
   #homePageComponent = null;
+  #headerMenuComponent = null;
   #homeMenuComponent = null;
   #footerComponent = null;
 
@@ -29,11 +32,13 @@ class HomePagePresenter {
   renderPage = () => {
     this.#renderHeaderComponent();
     this.#renderHomePageComponent();
+    this.#renderHeaderMenuComponent();
     this.#renderHomeMenuComponent();
     this.#renderFooterComponent();
   };
 
   destroyPage = () => {
+    this.#destroyHeaderMenuComponent();
     this.#destroyHeaderComponent();
     this.#destroyHomePageComponent();
     this.#destroyFooterComponent();
@@ -47,6 +52,18 @@ class HomePagePresenter {
   #destroyHeaderComponent = () => {
     remove(this.#headerComponent);
     this.#headerComponent = null;
+  };
+
+  #renderHeaderMenuComponent = () => {
+    this.#headerMenuComponent = new HeaderMenuView(this.#languageModel.lang, ACTIVE_PAGE.HOME);
+    this.#headerMenuComponent.setGameButtonHandler(this.#newGameHandler);
+    this.#headerMenuComponent.setGalleryButtonHandler(this.#goToGalleryPageHandler);
+    render(this.#headerComponent.getHeaderContainer(), this.#headerMenuComponent);
+  };
+
+  #destroyHeaderMenuComponent = () => {
+    remove(this.#headerMenuComponent);
+    this.#headerMenuComponent = null;
   };
 
   #renderHomePageComponent = () => {

@@ -1,8 +1,9 @@
 import { remove, render, replace } from '../utils/render';
-import { RenderPosition } from '../const/const';
+import { RenderPosition, ACTIVE_PAGE } from '../const/const';
 import { DEFAULT_ANSWER, DEFAULT_IMG } from '../const/game';
 
 import HeaderView from '../view/header-view';
+import HeaderMenuView from '../view/header-menu-view';
 import GameScoreView from '../view/game-score-view';
 import GamePageView from '../view/game-page-view';
 import CategoriesView from '../view/categories-view';
@@ -23,6 +24,7 @@ class GamePagePresenter {
 
   #gamePageContainer = null;
   #headerComponent = null;
+  #headerMenuComponent = null;
   #gameScoreComponent = null;
   #gamePageComponent = null;
   #categoriesComponent = null;
@@ -41,10 +43,12 @@ class GamePagePresenter {
   #currentAnswerId = null;
 
   #goToHomePageHandler = null;
+  #goToGalleryPageHandler = null;
 
-  constructor({ root, questionModel, languageModel, goToHomePageHandler }) {
+  constructor({ root, questionModel, languageModel, goToHomePageHandler, goToGalleryPageHandler }) {
     this.#gamePageContainer = root;
     this.#goToHomePageHandler = goToHomePageHandler;
+    this.#goToGalleryPageHandler = goToGalleryPageHandler;
 
     this.#questionModel = questionModel;
     this.#languageModel = languageModel;
@@ -54,6 +58,7 @@ class GamePagePresenter {
 
   renderPage = () => {
     this.#renderHeaderComponent();
+    this.#renderHeaderMenuComponent();
 
     this.#renderGamePageComponent();
     this.#renderCategories();
@@ -69,6 +74,7 @@ class GamePagePresenter {
   };
 
   destroyPage = () => {
+    this.#destroyHeaderMenuComponent();
     this.#destroyHeaderComponent();
 
     this.#destroyCategoriesComponent();
@@ -164,6 +170,18 @@ class GamePagePresenter {
   #destroyHeaderComponent = () => {
     remove(this.#headerComponent);
     this.#headerComponent = null;
+  };
+
+  #renderHeaderMenuComponent = () => {
+    this.#headerMenuComponent = new HeaderMenuView(this.#languageModel.lang, ACTIVE_PAGE.GAME);
+    this.#headerMenuComponent.setHomeButtonHandler(this.#goToHomePageHandler);
+    this.#headerMenuComponent.setGalleryButtonHandler(this.#goToGalleryPageHandler);
+    render(this.#headerComponent.getHeaderContainer(), this.#headerMenuComponent);
+  };
+
+  #destroyHeaderMenuComponent = () => {
+    remove(this.#headerMenuComponent);
+    this.#headerMenuComponent = null;
   };
 
   #renderGamePageComponent = () => {

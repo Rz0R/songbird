@@ -41,11 +41,14 @@ class MainPresenter {
       questionModel: this.#questionModel,
       languageModel: this.#languageModel,
       goToHomePageHandler: this.#goToHomePageHandler,
+      goToGalleryPageHandler: this.#goToGalleryPageHandler,
     });
     this.#galleryPagePresenter = new GalleryPagePresenter({
       root: this.#root,
       goToHomePageHandler: this.#goToHomePageHandler,
+      newGameHandler: this.#newGameHandler,
       questionModel: this.#questionModel,
+      languageModel: this.#languageModel,
     });
 
     this.render();

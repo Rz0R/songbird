@@ -2,6 +2,10 @@ import { LANGUAGE } from './const';
 import { MAX_SCORE } from './game';
 
 export const TRANSLATION = {
+  HOME: {
+    [LANGUAGE.RU]: 'Главная',
+    [LANGUAGE.EN]: 'Home',
+  },
   NEW_GAME: {
     [LANGUAGE.RU]: 'Игра',
     [LANGUAGE.EN]: 'Game',
