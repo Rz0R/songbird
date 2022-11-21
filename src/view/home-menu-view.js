@@ -30,7 +30,7 @@ const createHomeMenuTemplate = (lang = LANGUAGE.EN) => {
       <li class="menu-home__item menu-home__item_gallery">
         <a href="#" class="menu-home__link">${TRANSLATION.GALLERY[lang]}</a>
       </li>
-      <li class="menu-home__item">
+      <li class="menu-home__item menu-home__item_lang">
         <button class="menu-home__lang lang">
           <span class="lang__img-ibg">${svgEl}</span>
           <span class="lang__text">${lang === LANGUAGE.RU ? 'RU' : 'EN'}</span>
@@ -82,7 +82,7 @@ class HomeMenuView extends AbstractView {
 
   setLangButtonClickHandler = (callback) => {
     this._callback.langButtonClick = callback;
-    this.element.querySelector('.menu-home__lang').addEventListener('click', this.#langButtonClickHandler);
+    this.element.querySelector('.menu-home__item_lang').addEventListener('click', this.#langButtonClickHandler);
   };
 
   #langButtonClickHandler = () => {
