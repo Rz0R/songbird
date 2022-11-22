@@ -6,6 +6,7 @@ import HeaderView from '../view/header-view';
 import HeaderMenuView from '../view/header-menu-view';
 import GameScoreView from '../view/game-score-view';
 import GamePageView from '../view/game-page-view';
+import TopPanelView from '../view/top-panel-view';
 import CategoriesView from '../view/categories-view';
 import QuestionView from '../view/question-view';
 import AnswersContainerView from '../view/answers-container-view';
@@ -27,6 +28,7 @@ class GamePagePresenter {
   #headerMenuComponent = null;
   #gameScoreComponent = null;
   #gamePageComponent = null;
+  #topPanelComponent = null;
   #categoriesComponent = null;
   #questionComponent = null;
   #questionAudioPlayer = null;
@@ -61,7 +63,9 @@ class GamePagePresenter {
     this.#renderHeaderMenuComponent();
 
     this.#renderGamePageComponent();
+    this.#renderTopPanelComponent();
     this.#renderCategories();
+    this.#renderGameScoreComponent();
     this.#renderQuestion();
     this.#renderAnswersContainerComponent();
     this.#renderAnswerListComponent();
@@ -78,7 +82,8 @@ class GamePagePresenter {
     this.#destroyHeaderComponent();
 
     this.#destroyCategoriesComponent();
-    // this.#destroyGameScoreComponent();
+    this.#destroyGameScoreComponent();
+    this.#destroyTopPanelComponent();
     this.#destroyQuestionComponent();
     this.#destroyAnswerListComponent();
     this.#destroyAnswerInstructionComponent();
@@ -97,6 +102,8 @@ class GamePagePresenter {
 
   renderResultsPage = () => {
     this.#destroyCategoriesComponent();
+    this.#destroyGameScoreComponent();
+    this.#destroyTopPanelComponent();
     this.#destroyQuestionComponent();
     this.#destroyAnswerListComponent();
     this.#destroyAnswerInstructionComponent();
@@ -132,6 +139,7 @@ class GamePagePresenter {
 
   #roundWinHadler = () => {
     this.#questionAudioPlayer.stopAudio();
+    this.#renderGameScoreComponent();
     this.#soundComponent.playRightAnswerSound();
     this.#nextButtonComponent.enableButton();
   };
@@ -194,12 +202,22 @@ class GamePagePresenter {
     this.#gamePageComponent = null;
   };
 
+  #renderTopPanelComponent = () => {
+    this.#topPanelComponent = new TopPanelView();
+    render(this.#gamePageComponent.getGameContainer(), this.#topPanelComponent);
+  };
+
+  #destroyTopPanelComponent = () => {
+    remove(this.#topPanelComponent);
+    this.#topPanelComponent = null;
+  };
+
   #renderCategories = () => {
     const prevCategoriesComponent = this.#categoriesComponent;
     this.#categoriesComponent = new CategoriesView(this.#questionModel.getCategories());
 
     if (!prevCategoriesComponent) {
-      render(this.#gamePageComponent.getGameContainer(), this.#categoriesComponent, RenderPosition.AFTERBEGIN);
+      render(this.#topPanelComponent, this.#categoriesComponent, RenderPosition.AFTERBEGIN);
       return;
     }
 
@@ -232,12 +250,10 @@ class GamePagePresenter {
 
     if (!prevQuestionComponent) {
       render(this.#gamePageComponent.getGameContainer(), this.#questionComponent);
-      this.#renderGameScoreComponent();
       return;
     }
 
     replace(this.#questionComponent, prevQuestionComponent);
-    this.#renderGameScoreComponent();
     remove(prevQuestionComponent);
   };
 
@@ -250,8 +266,16 @@ class GamePagePresenter {
   };
 
   #renderGameScoreComponent = () => {
+    const prevGameScoreComponent = this.#gameScoreComponent;
     this.#gameScoreComponent = new GameScoreView(this.#questionModel.score, this.#languageModel.lang);
-    render(this.#questionComponent.getQuestionTopContainer(), this.#gameScoreComponent);
+
+    if (!prevGameScoreComponent) {
+      render(this.#topPanelComponent, this.#gameScoreComponent);
+      return;
+    }
+
+    replace(this.#gameScoreComponent, prevGameScoreComponent);
+    remove(prevGameScoreComponent);
   };
 
   #destroyGameScoreComponent = () => {
