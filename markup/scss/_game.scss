@@ -333,6 +333,7 @@
 
     @media (max-width: em(1100)) {
       flex: 1 0 100%;
+      min-height: unset;
     }
   }
 
