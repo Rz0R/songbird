@@ -54,7 +54,7 @@ class GamePagePresenter {
 
     this.#questionModel = questionModel;
     this.#languageModel = languageModel;
-    this.#questionModel.addRoundWinEvtListener(this.#roundWinHadler);
+    this.#questionModel.addRoundWinEvtListener(this.#roundWinHandler);
     this.#questionModel.addPenaltyEvtListener(this.#errorAnswerHandler);
   }
 
@@ -89,7 +89,7 @@ class GamePagePresenter {
     this.#destroyAnswerInstructionComponent();
     this.#destroyAnswerDescriptionComponent();
     this.#destroyAnswersContainerComponent();
-    this.#destroyNextButtonComponet();
+    this.#destroyNextButtonComponent();
 
     this.#destroyGamePageComponent();
 
@@ -109,9 +109,9 @@ class GamePagePresenter {
     this.#destroyAnswerInstructionComponent();
     this.#destroyAnswerDescriptionComponent();
     this.#destroyAnswersContainerComponent();
-    this.#destroyNextButtonComponet();
+    this.#destroyNextButtonComponent();
 
-    this.#renderResutlsComponent();
+    this.#renderResultsComponent();
   };
 
   #answerClickHandler = (id) => {
@@ -128,7 +128,7 @@ class GamePagePresenter {
     this.#renderAnswerDescriptionComponent(id);
   };
 
-  #tryAgainHadler = () => {
+  #tryAgainHandler = () => {
     this.#destroyResultsComponent();
     this.destroyPage();
 
@@ -137,7 +137,7 @@ class GamePagePresenter {
     this.renderPage();
   };
 
-  #roundWinHadler = () => {
+  #roundWinHandler = () => {
     this.#questionAudioPlayer.stopAudio();
     this.#renderGameScoreComponent();
     this.#soundComponent.playRightAnswerSound();
@@ -353,7 +353,7 @@ class GamePagePresenter {
     render(this.#gamePageComponent.getGameContainer(), this.#nextButtonComponent);
   };
 
-  #destroyNextButtonComponet = () => {
+  #destroyNextButtonComponent = () => {
     remove(this.#nextButtonComponent);
     this.#nextButtonComponent = null;
   };
@@ -368,9 +368,9 @@ class GamePagePresenter {
     this.#footerComponent = null;
   };
 
-  #renderResutlsComponent = () => {
+  #renderResultsComponent = () => {
     this.#resultsComponent = new ResultsView(this.#questionModel.score, this.#languageModel.lang);
-    this.#resultsComponent.setButtonClickHandler(this.#tryAgainHadler);
+    this.#resultsComponent.setButtonClickHandler(this.#tryAgainHandler);
     render(this.#gamePageComponent.getGameContainer(), this.#resultsComponent);
   };
 

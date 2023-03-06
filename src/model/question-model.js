@@ -7,7 +7,7 @@ class QuestionModel {
   #winEvtListeners = new Set();
   #penaltyEvtListeners = new Set();
 
-  #langauge = LANGUAGE.EN;
+  #language = LANGUAGE.EN;
   #round = 0;
   #isWin = false;
   #userAnswers = null;
@@ -18,12 +18,12 @@ class QuestionModel {
   #penaltyPoints = 0;
 
   constructor(lang = LANGUAGE.EN) {
-    this.#langauge = lang;
+    this.#language = lang;
   }
 
   getCategories = () => {
-    return categories[this.#langauge].map((category, ind) => {
-      return { name: category, isAcive: ind === this.#round };
+    return categories[this.#language].map((category, ind) => {
+      return { name: category, isActive: ind === this.#round };
     });
   };
 
@@ -39,8 +39,8 @@ class QuestionModel {
     this.#round = +ind;
   };
 
-  setLangauge = (lang) => {
-    this.#langauge = lang;
+  setLanguage = (lang) => {
+    this.#language = lang;
   };
 
   getQuestion = () => {
@@ -49,7 +49,7 @@ class QuestionModel {
       const question = birdsData[this.#round][questionInd];
       this.#currentQuestion = {
         id: question.id,
-        name: question.name[this.#langauge],
+        name: question.name[this.#language],
         imgSrc: question.image,
         audio: question.audio,
       };
@@ -61,7 +61,7 @@ class QuestionModel {
   getUserAnswers = () => {
     if (this.#userAnswers === null) {
       this.#userAnswers = birdsData[this.#round].map(({ id, name }) => {
-        return { id, name: name[this.#langauge], answer: ANSWER.NO_ANSWER };
+        return { id, name: name[this.#language], answer: ANSWER.NO_ANSWER };
       });
     }
 
@@ -90,22 +90,22 @@ class QuestionModel {
     const item = birdsData[this.#round][id - 1];
 
     return {
-      name: item.name[this.#langauge],
+      name: item.name[this.#language],
       species: item.species,
-      description: item.description[this.#langauge],
+      description: item.description[this.#language],
       imgSrc: item.image,
       audio: item.audio,
     };
   };
 
-  getAllDescripons = () => {
+  getAllDescriptions = () => {
     const flatBirdData = birdsData.flat();
 
     return flatBirdData.map((item) => {
       return {
-        name: item.name[this.#langauge],
+        name: item.name[this.#language],
         species: item.species,
-        description: item.description[this.#langauge],
+        description: item.description[this.#language],
         imgSrc: item.image,
         audio: item.audio,
       };

@@ -5,10 +5,8 @@ import { TRANSLATION } from '../const/translation';
 const createInstructionMessageTemplate = (message) => `<p>${message}</p>`;
 
 const createAnswerInstructionTemplate = (lang) => {
-  const intsructionItems = TRANSLATION.INSTRUCTION[lang]
-    .map((message) => createInstructionMessageTemplate(message))
-    .join('');
-  return `<div class="answers__instructions">${intsructionItems}</div>`;
+  const instructionItems = TRANSLATION.INSTRUCTION[lang].map((message) => createInstructionMessageTemplate(message)).join('');
+  return `<div class="answers__instructions">${instructionItems}</div>`;
 };
 
 class AnswerInstructionView extends AbstractView {

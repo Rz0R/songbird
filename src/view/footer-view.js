@@ -1,6 +1,6 @@
 import AbstractView from './abstract-view';
 
-const createFooterTemlate = () =>
+const createFooterTemplate = () =>
   `<footer class="footer">
     <div class="footer__container">
       <div class="footer__github-icon">
@@ -73,7 +73,7 @@ const createFooterTemlate = () =>
 
 class FooterView extends AbstractView {
   get template() {
-    return createFooterTemlate();
+    return createFooterTemplate();
   }
 }
 

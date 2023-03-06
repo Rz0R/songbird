@@ -1,8 +1,8 @@
 import { SAVE_LANG_KEY } from '../const/const';
 import { LANGUAGE } from '../const/const';
 
-export const saveLanguage = (langauge) => {
-  localStorage.setItem(SAVE_LANG_KEY, langauge);
+export const saveLanguage = (language) => {
+  localStorage.setItem(SAVE_LANG_KEY, language);
 };
 
 export const loadSavedLanguage = () => {

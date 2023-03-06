@@ -13,7 +13,7 @@ class GalleryPagePresenter {
   #headerComponent = null;
   #headerMenuComponent = null;
   #galleryPageComponent = null;
-  #galleryDescripionComponents = [];
+  #galleryDescriptionComponents = [];
   #footerComponent = null;
 
   #questionModel = null;
@@ -35,7 +35,7 @@ class GalleryPagePresenter {
     this.#renderHeaderMenuComponent();
     this.#renderGalleryPageComponent();
 
-    this.#renderDesriptionComponents();
+    this.#renderDescriptionComponents();
 
     this.#renderFooterComponent();
   };
@@ -82,15 +82,15 @@ class GalleryPagePresenter {
     this.#galleryPageComponent = null;
   };
 
-  #renderDesriptionComponents = () => {
-    this.#galleryDescripionComponents = this.#questionModel.getAllDescripons().map((description) => {
+  #renderDescriptionComponents = () => {
+    this.#galleryDescriptionComponents = this.#questionModel.getAllDescriptions().map((description) => {
       return {
         descriptionComponent: new AnswerDescriptionView(description),
         audioPlayerComponent: new AudioPlayerView(description.audio),
       };
     });
 
-    for (const component of this.#galleryDescripionComponents) {
+    for (const component of this.#galleryDescriptionComponents) {
       const { descriptionComponent, audioPlayerComponent } = component;
       render(this.#galleryPageComponent.getGalleryPageContainer(), descriptionComponent);
       render(descriptionComponent.getAnswerContentComponent(), audioPlayerComponent);
@@ -99,20 +99,20 @@ class GalleryPagePresenter {
   };
 
   #stopAllAudioPlayersHandler = () => {
-    for (const component of this.#galleryDescripionComponents) {
+    for (const component of this.#galleryDescriptionComponents) {
       const { audioPlayerComponent } = component;
       audioPlayerComponent.stopAudio();
     }
   };
 
   #destroyDescriptionComponents = () => {
-    for (const component of this.#galleryDescripionComponents) {
+    for (const component of this.#galleryDescriptionComponents) {
       const { descriptionComponent, audioPlayerComponent } = component;
       render(audioPlayerComponent);
       remove(descriptionComponent);
     }
 
-    this.#galleryDescripionComponents = [];
+    this.#galleryDescriptionComponents = [];
   };
 
   #renderFooterComponent = () => {

@@ -23,7 +23,7 @@ export const render = (container, element, place = RenderPosition.BEFOREEND) => 
 
 export const replace = (newElement, oldElement) => {
   if (newElement === null || oldElement === null) {
-    throw new Error("Can't replace unexisting elements");
+    throw new Error("Can't replace nonexistent elements");
   }
 
   const newChild = newElement instanceof AbstractView ? newElement.element : newElement;

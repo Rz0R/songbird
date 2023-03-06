@@ -234,7 +234,7 @@ class AudioPlayerView extends AbstractView {
   };
 
   #volumeBarClick = () => {
-    this.#volumeButtonElement.addEventListener('click', this.#togleMute);
+    this.#volumeButtonElement.addEventListener('click', this.#toggleMute);
   };
 
   #muteVolume = () => {
@@ -252,7 +252,7 @@ class AudioPlayerView extends AbstractView {
     replace(this.#volumeIconSvgElement, this.#volumeButtonElement.firstElementChild);
   };
 
-  #togleMute = () => {
+  #toggleMute = () => {
     if (this.#audioElement.muted) {
       this.#unmuteVolume();
     } else {

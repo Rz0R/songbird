@@ -83,7 +83,7 @@ class MainPresenter {
     this.#languageModel.toggleLang();
     this.#currentPage.destroyPage();
     this.#currentPage.renderPage();
-    this.#questionModel.setLangauge(this.#languageModel.lang);
+    this.#questionModel.setLanguage(this.#languageModel.lang);
   };
 
   #loadSavedLanguage = () => {
