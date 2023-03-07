@@ -51,45 +51,41 @@ class HeaderMenuView extends AbstractView {
 
   #menuHandler = (evt) => {
     if (evt.target.closest('.icon-menu')) {
-      this.element.classList.toggle('menu-open');
-    } else if (
-      evt.target.closest('[data-item]') &&
-      evt.target.closest('[data-item]').dataset.item === this.#activePage
-    ) {
+      document.documentElement.classList.toggle('menu-open');
+      this.#bodyLockToggle();
+    } else if (evt.target.closest('[data-item]') && evt.target.closest('[data-item]').dataset.item === this.#activePage) {
       this.#closeMenu();
-    } else if (
-      evt.target.closest('[data-item]') &&
-      evt.target.closest('[data-item]').dataset.item === ACTIVE_PAGE.HOME
-    ) {
+    } else if (evt.target.closest('[data-item]') && evt.target.closest('[data-item]').dataset.item === ACTIVE_PAGE.HOME) {
       this._callback.homeButtonClick && this._callback.homeButtonClick();
-    } else if (
-      evt.target.closest('[data-item]') &&
-      evt.target.closest('[data-item]').dataset.item === ACTIVE_PAGE.GAME
-    ) {
+    } else if (evt.target.closest('[data-item]') && evt.target.closest('[data-item]').dataset.item === ACTIVE_PAGE.GAME) {
       this._callback.gameButtonClick && this._callback.gameButtonClick();
-    } else if (
-      evt.target.closest('[data-item]') &&
-      evt.target.closest('[data-item]').dataset.item === ACTIVE_PAGE.GALLERY
-    ) {
+    } else if (evt.target.closest('[data-item]') && evt.target.closest('[data-item]').dataset.item === ACTIVE_PAGE.GALLERY) {
       this._callback.galleryButtonClick && this._callback.galleryButtonClick();
     }
   };
 
+  #bodyLockToggle = () => {
+    document.documentElement.classList.toggle('lock');
+  };
+
   #closeMenu = () => {
-    if (this.element.classList.contains('menu-open')) {
-      this.element.classList.remove('menu-open');
+    if (document.documentElement.classList.contains('menu-open')) {
+      document.documentElement.classList.remove('menu-open', 'lock');
     }
   };
 
   setHomeButtonHandler = (callback) => {
+    this.#closeMenu();
     this._callback.homeButtonClick = callback;
   };
 
   setGameButtonHandler = (callback) => {
+    this.#closeMenu();
     this._callback.gameButtonClick = callback;
   };
 
   setGalleryButtonHandler = (callback) => {
+    this.#closeMenu();
     this._callback.galleryButtonClick = callback;
   };
 }
